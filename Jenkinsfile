@@ -4,9 +4,9 @@ pipeline {
     tools {
         maven "local_maven"
     }
-//
-//     stages {
-//         stage("Build") {
+
+    stages {
+        stage("Build") {
 //             steps {
 //                     bat 'mvn clean package'
 //             }
