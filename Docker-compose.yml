@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  spring-app:
+  lab-two:
     build:
       context: .
       dockerfile: Dockerfile
