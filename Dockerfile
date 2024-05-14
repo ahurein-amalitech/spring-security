@@ -1,10 +1,11 @@
 FROM openjdk:21-jdk-slim
 WORKDIR /app
 
+EXPOSE 8081
+
 COPY target/*.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
-
+CMD ["java", "-jar", "/app/app.jar"]
 
 
 #FROM openjdk:21-jdk-slim AS builder
