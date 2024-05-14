@@ -15,13 +15,13 @@ COPY pom.xml .
 RUN chmod +x mvnw
 
 # Download and install any dependencies specified in pom.xml
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 
 # Copy the application source code into the container
 COPY src src
 
 # Build the application
-RUN ./mvnw package -Dmaven.test.skip
+RUN mvn package -Dmaven.test.skip
 
 
 FROM openjdk:21-jdk-slim
