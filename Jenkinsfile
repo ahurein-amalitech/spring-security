@@ -29,11 +29,11 @@ pipeline {
             }
         }
 
-//         stage("deploy") {
-//             steps {
-//                 bat 'docker build -t drestsecurity .'
-//                 bat 'docker run -d -p 8085:8085 drestsecurity'
-//             }
-//         }
+        stage("deploy") {
+            steps {
+                bat 'docker build -t drestsecurity .'
+                bat 'docker run -d -p 3000:3000 drestsecurity'
+            }
+        }
     }
 }
