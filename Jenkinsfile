@@ -3,26 +3,29 @@ pipeline {
 
     tools {
         maven "docker_maven"
+        docker "docker_docker"
     }
 
     stages {
-        stage ("Build"){
+        stage("Build and Dockerize") {
             steps {
-                sh 'ls'
-                sh 'docker build .'
-                sh 'mvn clean package -Dmaven.test.skip'
+                    sh 'mvn clean package -Dmaven.test.skip'
+
+                    sh 'docker build -t drestsecurity .'
             }
             post {
                 success {
                     echo "Archiving the Artifacts"
-                    archiveArtifacts artifacts: '**/target/*.war'
+                    archiveArtifacts artifacts: '**/target/*.jar'
                 }
             }
         }
 
-        stage ("Deploy"){
+        stage("Run Docker Container") {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat-local', path: '', url: 'http://192.168.3.32:5050/')], contextPath: null, war: '**/*.war'
+                script {
+                    sh 'docker run -d -p 8080:8080 drestsecurity'
+                }
             }
         }
     }
