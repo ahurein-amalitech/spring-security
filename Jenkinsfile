@@ -31,8 +31,8 @@ pipeline {
 
         stage("deploy") {
             steps {
-                bat "docker-compose -f Docker.compose.yml down"
-                bat "docker-compose -f Docker.compose.yml up -d"
+                bat "docker-compose -f Docker-compose.yml down"
+                bat "docker-compose -f Docker-compose.yml up -d"
             }
         }
     }
