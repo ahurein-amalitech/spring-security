@@ -1,3 +1,4 @@
+FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 COPY  /app/target/*.jar app.jar
