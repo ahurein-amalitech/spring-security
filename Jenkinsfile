@@ -8,6 +8,8 @@ pipeline {
     stages {
         stage ("Build"){
             steps {
+                sh 'ls'
+                sh 'docker build .'
                 sh 'mvn clean package -Dmaven.test.skip'
             }
             post {
