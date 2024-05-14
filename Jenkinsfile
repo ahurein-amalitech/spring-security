@@ -2,16 +2,13 @@ pipeline {
     agent any
 
     tools {
-        maven "docker_maven"
-        docker "docker_docker"
+        maven "local_maven"
     }
 
     stages {
-        stage("Build and Dockerize") {
+        stage("Build") {
             steps {
-                    sh 'mvn clean package -Dmaven.test.skip'
-
-                    sh 'docker build -t drestsecurity .'
+                    bat 'mvn clean package'
             }
             post {
                 success {
@@ -21,12 +18,22 @@ pipeline {
             }
         }
 
-        stage("Run Docker Container") {
+        stage("Test") {
             steps {
-                script {
-                    sh 'docker run -d -p 8080:8080 drestsecurity'
+                bat 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml' // Archive JUnit test reports (assuming default location)
                 }
             }
         }
+
+//         stage("deploy") {
+//             steps {
+//                 bat 'docker build -t drestsecurity .'
+//                 bat 'docker run -d -p 8085:8085 drestsecurity'
+//             }
+//         }
     }
 }
